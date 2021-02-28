@@ -24,10 +24,18 @@ namespace CarRentalApp
         public AddEditVehicle(TypesOfCars carToEdit)
         {
             InitializeComponent();
-            _db = new CarRentalEntities();
             lbl_Title.Text = "Edit Vehicle";
-            isEditMode = true;
-            PopulateFields(carToEdit);
+            if (carToEdit == null)
+            {
+                MessageBox.Show("Please ensure that you selected a valid record");
+                Close();
+            }
+            else
+            {
+                isEditMode = true;
+                _db = new CarRentalEntities();
+                PopulateFields(carToEdit);
+            }
         }
 
         private void PopulateFields(TypesOfCars car)
@@ -47,30 +55,37 @@ namespace CarRentalApp
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            if (isEditMode)
+            try
             {
-                int id = int.Parse(lbl_Id.Text);
-                var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
-                car.Make = txtBox_Name.Text;
-                car.Model = txtBox_Model.Text;
-                car.VIN = txtBox_VIN.Text;
-                car.Year=int.Parse(txtBox_Year.Text);
-                car.LicensePlateNumber = txtBox_LicensePlate.Text;
-
-                _db.SaveChanges();
-            }
-            else
-            {
-                var newCar = new TypesOfCars
+                if (isEditMode)
                 {
-                    Make = txtBox_Name.Text,
-                    Model = txtBox_Model.Text,
-                    VIN = txtBox_VIN.Text,
-                    Year = int.Parse(txtBox_Year.Text),
-                    LicensePlateNumber = txtBox_LicensePlate.Text
-                };
-                _db.TypesOfCars.Add(newCar);
-                _db.SaveChanges();
+                    int id = int.Parse(lbl_Id.Text);
+                    var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
+                    car.Make = txtBox_Name.Text;
+                    car.Model = txtBox_Model.Text;
+                    car.VIN = txtBox_VIN.Text;
+                    car.Year = int.Parse(txtBox_Year.Text);
+                    car.LicensePlateNumber = txtBox_LicensePlate.Text;
+
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    var newCar = new TypesOfCars
+                    {
+                        Make = txtBox_Name.Text,
+                        Model = txtBox_Model.Text,
+                        VIN = txtBox_VIN.Text,
+                        Year = int.Parse(txtBox_Year.Text),
+                        LicensePlateNumber = txtBox_LicensePlate.Text
+                    };
+                    _db.TypesOfCars.Add(newCar);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Please check all the fields");
             }
         }
 

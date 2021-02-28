@@ -11,13 +11,43 @@ using System.Windows.Forms;
 
 namespace CarRentalApp
 {
-    public partial class AddRentalRecord : Form
+    public partial class AddEditRentalRecord : Form
     {
-        private readonly CarRentalEntities carRentalEntities;
-        public AddRentalRecord()
+        private bool isEditMode;
+        private readonly CarRentalEntities _db;
+        public AddEditRentalRecord()
         {
             InitializeComponent();
-            carRentalEntities = new CarRentalEntities();
+            _db = new CarRentalEntities();
+            label1.Text = "Add New Rental Record";
+            this.Text = "Add New Rental";
+            isEditMode = false;
+        }
+        public AddEditRentalRecord(CarRentalRecord recordToEdit)
+        {
+            InitializeComponent();
+            label1.Text = "Edit Vehicle";
+            if (recordToEdit == null)
+            {
+                MessageBox.Show("Please ensure that you selected a valid record");
+                Close();
+            }
+            else
+            {
+                isEditMode = true;
+                _db = new CarRentalEntities();
+                PopulateFields(recordToEdit);
+            }
+        }
+
+        private void PopulateFields(CarRentalRecord recordToEdit)
+        {
+            txtBox_CoustomerName.Text = recordToEdit.CustomerName;
+            //cmBox_TypeOfCar.Text=recordToEdit.TypeOfCarID
+            dateRented.Value = (DateTime)recordToEdit.DateRented;
+            dateReturned.Value = (DateTime)recordToEdit.DateReturned;
+            txtBox_Cost.Text = recordToEdit.Cost.ToString();
+            lblRecordId.Text = recordToEdit.id.ToString();
         }
 
         private void fillCmboxCars()
@@ -25,9 +55,9 @@ namespace CarRentalApp
             try
             {
                 /*Select * from typesOfCar
-                List<TypesOfCars> cars = carRentalEntities.TypesOfCars.ToList();
+                List<TypesOfCars> cars = _db.TypesOfCars.ToList();
                 */
-                var cars = carRentalEntities.TypesOfCars
+                var cars = _db.TypesOfCars
                     .Select(q => new { Id = q.Id, Name = (q.Make + " " + q.Model)}).ToList();
                 cmBox_TypeOfCar.DisplayMember = "Name";
                 cmBox_TypeOfCar.ValueMember = "Id";
@@ -75,18 +105,29 @@ namespace CarRentalApp
             }
             if (isValid)
             {
-                CarRentalRecord rentalRecord = new CarRentalRecord();
+                var rentalRecord = new CarRentalRecord();
+                if (isEditMode)
+                {
+                    var id = int.Parse(lblRecordId.Text);
+                    rentalRecord = _db.CarRentalRecord.FirstOrDefault(q => q.id == id);
+                }
                 rentalRecord.CustomerName = coustomerName;
                 rentalRecord.DateRented = daterented;
                 rentalRecord.DateReturned = datereturned;
                 rentalRecord.Cost = (decimal)cost;
                 rentalRecord.TypeOfCarID = (int)cmBox_TypeOfCar.SelectedValue;
-                carRentalEntities.CarRentalRecord.Add(rentalRecord);
-                carRentalEntities.SaveChanges(); 
+
+                if(!isEditMode)
+                    _db.CarRentalRecord.Add(rentalRecord);
+
+                _db.SaveChanges();
 
                 MessageBox.Show("Thank You for renting " + coustomerName,
                "Thank you!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Close();
             }
+
             else
             {
                 MessageBox.Show(errorMessage);

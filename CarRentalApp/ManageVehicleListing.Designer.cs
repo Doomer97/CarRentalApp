@@ -34,6 +34,7 @@ namespace CarRentalApp
             this.btn_AddCar = new System.Windows.Forms.Button();
             this.btn_EditCar = new System.Windows.Forms.Button();
             this.btn_DeleteCar = new System.Windows.Forms.Button();
+            this.btn_Refresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_VehicleList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,11 +87,22 @@ namespace CarRentalApp
             this.btn_DeleteCar.UseVisualStyleBackColor = true;
             this.btn_DeleteCar.Click += new System.EventHandler(this.btn_DeleteCar_Click);
             // 
+            // btn_Refresh
+            // 
+            this.btn_Refresh.Location = new System.Drawing.Point(256, 357);
+            this.btn_Refresh.Name = "btn_Refresh";
+            this.btn_Refresh.Size = new System.Drawing.Size(75, 23);
+            this.btn_Refresh.TabIndex = 5;
+            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.UseVisualStyleBackColor = true;
+            this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
+            // 
             // ManageVehicleListing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 393);
+            this.Controls.Add(this.btn_Refresh);
             this.Controls.Add(this.btn_DeleteCar);
             this.Controls.Add(this.btn_EditCar);
             this.Controls.Add(this.btn_AddCar);
@@ -112,5 +124,6 @@ namespace CarRentalApp
         private System.Windows.Forms.Button btn_AddCar;
         private System.Windows.Forms.Button btn_EditCar;
         private System.Windows.Forms.Button btn_DeleteCar;
+        private System.Windows.Forms.Button btn_Refresh;
     }
 }

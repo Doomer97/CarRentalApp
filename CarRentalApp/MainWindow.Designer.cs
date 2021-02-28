@@ -79,6 +79,7 @@ namespace CarRentalApp
             this.viewArchiveToolStripMenuItem.Name = "viewArchiveToolStripMenuItem";
             this.viewArchiveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewArchiveToolStripMenuItem.Text = "View Archive";
+            this.viewArchiveToolStripMenuItem.Click += new System.EventHandler(this.viewArchiveToolStripMenuItem_Click);
             // 
             // editRentalRecordToolStripMenuItem
             // 

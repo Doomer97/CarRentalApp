@@ -1,7 +1,7 @@
 ﻿
 namespace CarRentalApp
 {
-    partial class AddRentalRecord
+    partial class AddEditRentalRecord
     {
         /// <summary>
         /// Required designer variable.
@@ -41,6 +41,7 @@ namespace CarRentalApp
             this.btn_Submit = new System.Windows.Forms.Button();
             this.txtBox_Cost = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.lblRecordId = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -151,11 +152,21 @@ namespace CarRentalApp
             this.label6.TabIndex = 11;
             this.label6.Text = "Cost";
             // 
-            // AddRentalRecord
+            // lblRecordId
+            // 
+            this.lblRecordId.AutoSize = true;
+            this.lblRecordId.Location = new System.Drawing.Point(222, 269);
+            this.lblRecordId.Name = "lblRecordId";
+            this.lblRecordId.Size = new System.Drawing.Size(0, 13);
+            this.lblRecordId.TabIndex = 12;
+            this.lblRecordId.Visible = false;
+            // 
+            // AddEditRentalRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(608, 298);
+            this.Controls.Add(this.lblRecordId);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtBox_Cost);
             this.Controls.Add(this.btn_Submit);
@@ -168,7 +179,7 @@ namespace CarRentalApp
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtBox_CoustomerName);
             this.Controls.Add(this.label1);
-            this.Name = "AddRentalRecord";
+            this.Name = "AddEditRentalRecord";
             this.Text = "Car Rental System";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -190,6 +201,7 @@ namespace CarRentalApp
         private System.Windows.Forms.Button btn_Submit;
         private System.Windows.Forms.TextBox txtBox_Cost;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblRecordId;
     }
 }
 

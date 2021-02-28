@@ -19,7 +19,7 @@ namespace CarRentalApp
 
         private void addRentalRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddRentalRecord addRentalRecord = new AddRentalRecord();
+            AddEditRentalRecord addRentalRecord = new AddEditRentalRecord();
             addRentalRecord.MdiParent = this;
             addRentalRecord.Show();
         }
@@ -39,6 +39,13 @@ namespace CarRentalApp
         private void manageRentalRecordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void viewArchiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ManageRentalRecords manageRentalRecords = new ManageRentalRecords();
+            manageRentalRecords.MdiParent = this;
+            manageRentalRecords.Show();
         }
     }
 }

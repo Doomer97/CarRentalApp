@@ -18,6 +18,32 @@ namespace CarRentalApp
             InitializeComponent();
             _db = new CarRentalEntities();
         }
+        private void populateData()
+        {
+            try
+            {
+                var cars = _db.TypesOfCars
+                    .Select
+                    (q => new
+                    {
+                        q.Make,
+                        Model = q.Model,
+                        VIN = q.VIN,
+                        Year = q.Year,
+                        LicensePlateNumber = q.LicensePlateNumber,
+                        Id = q.Id
+                    }).ToList();
+                dGV_VehicleList.DataSource = cars;
+                //allos tropos gia onoma
+                dGV_VehicleList.Columns[4].HeaderText = "License Plate Number";
+                dGV_VehicleList.Columns[5].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Connection with database could not be established");
+                //disable controls TODO
+            }
+        }
 
         private void ManageVehicleListing_Load(object sender, EventArgs e)
         {
@@ -36,23 +62,34 @@ namespace CarRentalApp
             dGV_VehicleList.DataSource = cars;
             */
 
-            var cars = _db.TypesOfCars
-                .Select
-                (q => new
-                {
-                    q.Make,
-                    Model = q.Model,
-                    VIN = q.VIN,
-                    Year = q.Year,
-                    LicensePlateNumber = q.LicensePlateNumber,
-                    Id = q.Id
-                }).ToList();
-            dGV_VehicleList.DataSource = cars;
-            //allos tropos gia onoma
-            dGV_VehicleList.Columns[4].HeaderText = "License Plate Number";
-            dGV_VehicleList.Columns[5].Visible = false;
-
+            /*try
+            {
+                var cars = _db.TypesOfCars
+                    .Select
+                    (q => new
+                    {
+                        q.Make,
+                        Model = q.Model,
+                        VIN = q.VIN,
+                        Year = q.Year,
+                        LicensePlateNumber = q.LicensePlateNumber,
+                        Id = q.Id
+                    }).ToList();
+                dGV_VehicleList.DataSource = cars;
+                //allos tropos gia onoma
+                dGV_VehicleList.Columns[4].HeaderText = "License Plate Number";
+                dGV_VehicleList.Columns[5].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Connection with database could not be established");
+                //disable controls
+            }
+            */
+            populateData();
         }
+
+       
 
         private void dGV_VehicleList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -68,27 +105,46 @@ namespace CarRentalApp
 
         private void btn_EditCar_Click(object sender, EventArgs e)
         {
-            // get id
-            //We expect Int here (data type from database column). otherwise use var./ need casting
-            int id = (int)dGV_VehicleList.SelectedRows[0].Cells["Id"].Value;
-            //query
-            var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
+            try
+            {
+                // get id
+                //We expect Int here (data type from database column). otherwise use var./ need casting
+                int id = (int)dGV_VehicleList.SelectedRows[0].Cells["Id"].Value;
+                //query
+                var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
 
-            // launch addeditvehicle window with data
-            AddEditVehicle addEditVehicle = new AddEditVehicle(car);
-            addEditVehicle.MdiParent = this.MdiParent;
-            addEditVehicle.Show();
+                // launch addeditvehicle window with data
+                AddEditVehicle addEditVehicle = new AddEditVehicle(car);
+                addEditVehicle.MdiParent = this.MdiParent;
+                addEditVehicle.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("You Have to select a whole row in order to edit", "Error");
+            }
         }
 
         private void btn_DeleteCar_Click(object sender, EventArgs e)
         {
-            int id = (int)dGV_VehicleList.SelectedRows[0].Cells["Id"].Value;
+            try
+            {
+                int id = (int)dGV_VehicleList.SelectedRows[0].Cells["Id"].Value;
 
-            var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
-            //delete
-            _db.TypesOfCars.Remove(car);
-            _db.SaveChanges();
-            dGV_VehicleList.Refresh();
+                var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
+                //delete
+                _db.TypesOfCars.Remove(car);
+                _db.SaveChanges();
+                dGV_VehicleList.Refresh();
+                MessageBox.Show("Delete Success");
+            }catch(Exception ex)
+            {
+                MessageBox.Show("You Have to select a whole row in order to delete", "Error");
+            }
+        }
+
+        private void btn_Refresh_Click(object sender, EventArgs e)
+        {
+            populateData();
         }
     }
 }
