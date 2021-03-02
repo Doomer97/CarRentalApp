@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Forms; 
 
 namespace CarRentalApp
 {
@@ -18,7 +18,7 @@ namespace CarRentalApp
             InitializeComponent();
             _db = new CarRentalEntities();
         }
-        private void populateData()
+        public void populateData()
         {
             try
             {
@@ -98,7 +98,7 @@ namespace CarRentalApp
 
         private void btn_AddCar_Click(object sender, EventArgs e)
         {
-            AddEditVehicle addEditVehicle = new AddEditVehicle();
+            AddEditVehicle addEditVehicle = new AddEditVehicle(this);
             addEditVehicle.MdiParent = this.MdiParent;
             addEditVehicle.Show();
         }
@@ -114,7 +114,7 @@ namespace CarRentalApp
                 var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
 
                 // launch addeditvehicle window with data
-                AddEditVehicle addEditVehicle = new AddEditVehicle(car);
+                AddEditVehicle addEditVehicle = new AddEditVehicle(car,this);
                 addEditVehicle.MdiParent = this.MdiParent;
                 addEditVehicle.Show();
             }
@@ -132,11 +132,16 @@ namespace CarRentalApp
 
                 var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
                 //delete
-                _db.TypesOfCars.Remove(car);
-                _db.SaveChanges();
-                dGV_VehicleList.Refresh();
-                MessageBox.Show("Delete Success");
-            }catch(Exception ex)
+                if (MessageBox.Show("Are you sure you want to delete this?","Confirmation",
+                    MessageBoxButtons.YesNo,MessageBoxIcon.Warning)==DialogResult.Yes) 
+                {
+                    _db.TypesOfCars.Remove(car);
+                    _db.SaveChanges();
+                    MessageBox.Show("Delete Success");
+                    populateData();
+                }
+
+            }catch(Exception)
             {
                 MessageBox.Show("You Have to select a whole row in order to delete", "Error");
             }

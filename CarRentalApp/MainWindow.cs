@@ -19,9 +19,14 @@ namespace CarRentalApp
 
         private void addRentalRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddEditRentalRecord addRentalRecord = new AddEditRentalRecord();
-            addRentalRecord.MdiParent = this;
-            addRentalRecord.Show();
+            var OpenForms = Application.OpenForms.Cast<Form>();
+            bool isOpen = OpenForms.Any(q => q.Name == "AddEditRentalRecord");
+            if (!isOpen)
+            {
+                AddEditRentalRecord addRentalRecord = new AddEditRentalRecord();
+                addRentalRecord.MdiParent = this;
+                addRentalRecord.Show();
+            }
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -31,9 +36,14 @@ namespace CarRentalApp
 
         private void manageVehicleListingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ManageVehicleListing vechicleListing = new ManageVehicleListing();
-            vechicleListing.MdiParent = this;
-            vechicleListing.Show();
+            var OpenForms = Application.OpenForms.Cast<Form>();
+            bool isOpen = OpenForms.Any(q => q.Name == "ManageVehicleListing");
+            if (!isOpen)
+            {
+                ManageVehicleListing vechicleListing = new ManageVehicleListing();
+                vechicleListing.MdiParent = this;
+                vechicleListing.Show();
+            }
         }
 
         private void manageRentalRecordsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -43,9 +53,14 @@ namespace CarRentalApp
 
         private void viewArchiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ManageRentalRecords manageRentalRecords = new ManageRentalRecords();
-            manageRentalRecords.MdiParent = this;
-            manageRentalRecords.Show();
+            var OpenForms = Application.OpenForms.Cast<Form>();
+            bool isOpen = OpenForms.Any(q => q.Name == "ManageRentalRecords");
+            if (!isOpen)
+            {
+                ManageRentalRecords manageRentalRecords = new ManageRentalRecords();
+                manageRentalRecords.MdiParent = this;
+                manageRentalRecords.Show();
+            }
         }
     }
 }

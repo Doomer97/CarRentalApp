@@ -13,18 +13,24 @@ namespace CarRentalApp
     public partial class AddEditVehicle : Form
     {
         private bool isEditMode;
+        private ManageVehicleListing _manageVehicleListing;
         private readonly CarRentalEntities _db;
-        public AddEditVehicle()
+
+        public AddEditVehicle(ManageVehicleListing manageVehicleListing=null)
         {
             InitializeComponent();
-            _db = new CarRentalEntities();
             lbl_Title.Text = "Add New Vehicle";
+            this.Text = "Add New Vehicle";
             isEditMode = false;
+            _manageVehicleListing = manageVehicleListing;
+            _db = new CarRentalEntities();
         }
-        public AddEditVehicle(TypesOfCars carToEdit)
+        public AddEditVehicle(TypesOfCars carToEdit, ManageVehicleListing manageVehicleListing=null)
         {
             InitializeComponent();
             lbl_Title.Text = "Edit Vehicle";
+            this.Text = "Edit Vehicle";
+            _manageVehicleListing = manageVehicleListing;
             if (carToEdit == null)
             {
                 MessageBox.Show("Please ensure that you selected a valid record");
@@ -55,6 +61,7 @@ namespace CarRentalApp
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
+            string result;
             try
             {
                 if (isEditMode)
@@ -68,6 +75,7 @@ namespace CarRentalApp
                     car.LicensePlateNumber = txtBox_LicensePlate.Text;
 
                     _db.SaveChanges();
+                    result = "Edid Success";
                 }
                 else
                 {
@@ -81,7 +89,11 @@ namespace CarRentalApp
                     };
                     _db.TypesOfCars.Add(newCar);
                     _db.SaveChanges();
+                    result = "Add Success";
                 }
+                _manageVehicleListing.populateData();
+                MessageBox.Show(result);
+                this.Close();
             }
             catch (Exception)
             {
