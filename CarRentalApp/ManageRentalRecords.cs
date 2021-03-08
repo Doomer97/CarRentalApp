@@ -18,7 +18,7 @@ namespace CarRentalApp
             InitializeComponent();
             _db = new CarRentalEntities();
         }
-        void populateData()
+        public void populateData()
         {
             try
             {
@@ -57,20 +57,24 @@ namespace CarRentalApp
         {
             try
             {
-                // get id
-                //We expect Int here (data type from database column). otherwise use var./ need casting
-                int id = (int)dGV_RecordList.SelectedRows[0].Cells["Id"].Value;
-                //query
-                var record = _db.CarRentalRecord.FirstOrDefault(q => q.id == id);
-
-                // launch addeditvehicle window with data
-
-                var addEditRentalRecord = new AddEditRentalRecord(record)
+                var OpenForms = Application.OpenForms.Cast<Form>();
+                bool isOpen = OpenForms.Any(q => q.Name == "AddEditRentalRecord");
+                if (!isOpen)
                 {
-                    MdiParent = this.MdiParent
-                };
-                addEditRentalRecord.Show();
-                
+                    // get id
+                    //We expect Int here (data type from database column). otherwise use var./ need casting
+                    int id = (int)dGV_RecordList.SelectedRows[0].Cells["Id"].Value;
+                    //query
+                    var record = _db.CarRentalRecord.FirstOrDefault(q => q.id == id);
+
+                    // launch addeditvehicle window with data
+
+                    var addEditRentalRecord = new AddEditRentalRecord(record, this)
+                    {
+                        MdiParent = this.MdiParent
+                    };
+                    addEditRentalRecord.Show();
+                }
             }
             catch (Exception)
             {
@@ -92,7 +96,7 @@ namespace CarRentalApp
                 MessageBox.Show("Delete Success");
                 populateData();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("You Have to select a whole row in order to delete", "Error");
             }
@@ -100,9 +104,14 @@ namespace CarRentalApp
 
         private void btn_AddCar_Click(object sender, EventArgs e)
         {
-            AddEditRentalRecord addEditRentalRecord = new AddEditRentalRecord();
-            addEditRentalRecord.MdiParent = this.MdiParent;
-            addEditRentalRecord.Show();
+            var OpenForms = Application.OpenForms.Cast<Form>();
+            bool isOpen = OpenForms.Any(q => q.Name == "AddEditRentalRecord");
+            if (!isOpen)
+            {
+                AddEditRentalRecord addEditRentalRecord = new AddEditRentalRecord(this);
+                addEditRentalRecord.MdiParent = this.MdiParent;
+                addEditRentalRecord.Show();
+            }
         }
     }
 }

@@ -73,9 +73,7 @@ namespace CarRentalApp
                     car.VIN = txtBox_VIN.Text;
                     car.Year = int.Parse(txtBox_Year.Text);
                     car.LicensePlateNumber = txtBox_LicensePlate.Text;
-
-                    _db.SaveChanges();
-                    result = "Edid Success";
+                    result = "Edit Success";
                 }
                 else
                 {
@@ -88,9 +86,9 @@ namespace CarRentalApp
                         LicensePlateNumber = txtBox_LicensePlate.Text
                     };
                     _db.TypesOfCars.Add(newCar);
-                    _db.SaveChanges();
-                    result = "Add Success";
+                    result = "Add Success"; 
                 }
+                _db.SaveChanges();
                 _manageVehicleListing.populateData();
                 MessageBox.Show(result);
                 this.Close();

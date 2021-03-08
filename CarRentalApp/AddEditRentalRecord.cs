@@ -15,18 +15,21 @@ namespace CarRentalApp
     {
         private bool isEditMode;
         private readonly CarRentalEntities _db;
-        public AddEditRentalRecord()
+        private ManageRentalRecords _manageRentalRecords;
+        public AddEditRentalRecord(ManageRentalRecords manageRentalRecords=null)
         {
             InitializeComponent();
             _db = new CarRentalEntities();
             label1.Text = "Add New Rental Record";
             this.Text = "Add New Rental";
             isEditMode = false;
+            _manageRentalRecords = manageRentalRecords;
         }
-        public AddEditRentalRecord(CarRentalRecord recordToEdit)
+        public AddEditRentalRecord(CarRentalRecord recordToEdit,ManageRentalRecords manageRentalRecords)
         {
             InitializeComponent();
             label1.Text = "Edit Vehicle";
+            _manageRentalRecords = manageRentalRecords;
             if (recordToEdit == null)
             {
                 MessageBox.Show("Please ensure that you selected a valid record");
@@ -116,16 +119,25 @@ namespace CarRentalApp
                 rentalRecord.DateReturned = datereturned;
                 rentalRecord.Cost = (decimal)cost;
                 rentalRecord.TypeOfCarID = (int)cmBox_TypeOfCar.SelectedValue;
+                if (rentalRecord.Cost <= 0)
+                {
+                    MessageBox.Show("cost cant be 0 or less.");
+                }
+                else
+                {
+                    if (!isEditMode)
+                        _db.CarRentalRecord.Add(rentalRecord);
 
-                if(!isEditMode)
-                    _db.CarRentalRecord.Add(rentalRecord);
+                    _db.SaveChanges();
 
-                _db.SaveChanges();
+                    if (_manageRentalRecords != null)
+                        _manageRentalRecords.populateData();
 
-                MessageBox.Show("Thank You for renting " + coustomerName,
-               "Thank you!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Thank You for renting " + coustomerName,
+                   "Thank you!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                this.Close();
+                    this.Close();
+                }
             }
 
             else

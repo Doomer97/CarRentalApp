@@ -98,25 +98,34 @@ namespace CarRentalApp
 
         private void btn_AddCar_Click(object sender, EventArgs e)
         {
-            AddEditVehicle addEditVehicle = new AddEditVehicle(this);
-            addEditVehicle.MdiParent = this.MdiParent;
-            addEditVehicle.Show();
+            var OpenForms = Application.OpenForms.Cast<Form>();
+            bool isOpen = OpenForms.Any(q => q.Name == "AddEditVehicle");
+            if (!isOpen)
+            {
+                AddEditVehicle addEditVehicle = new AddEditVehicle(this);
+                addEditVehicle.MdiParent = this.MdiParent;
+                addEditVehicle.Show();
+            }
         }
 
         private void btn_EditCar_Click(object sender, EventArgs e)
         {
             try
             {
-                // get id
-                //We expect Int here (data type from database column). otherwise use var./ need casting
-                int id = (int)dGV_VehicleList.SelectedRows[0].Cells["Id"].Value;
-                //query
-                var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
-
-                // launch addeditvehicle window with data
-                AddEditVehicle addEditVehicle = new AddEditVehicle(car,this);
-                addEditVehicle.MdiParent = this.MdiParent;
-                addEditVehicle.Show();
+                var OpenForms = Application.OpenForms.Cast<Form>();
+                bool isOpen = OpenForms.Any(q => q.Name == "AddEditVehicle");
+                if (!isOpen)
+                {
+                    // get id
+                    //We expect Int here (data type from database column). otherwise use var./ need casting
+                    int id = (int)dGV_VehicleList.SelectedRows[0].Cells["Id"].Value;
+                    //query
+                    var car = _db.TypesOfCars.FirstOrDefault(q => q.Id == id);
+                    // launch addeditvehicle window with data
+                    AddEditVehicle addEditVehicle = new AddEditVehicle(car, this);
+                    addEditVehicle.MdiParent = this.MdiParent;
+                    addEditVehicle.Show();
+                }
             }
             catch (Exception)
             {
@@ -138,10 +147,10 @@ namespace CarRentalApp
                     _db.TypesOfCars.Remove(car);
                     _db.SaveChanges();
                     MessageBox.Show("Delete Success");
-                    populateData();
                 }
-
-            }catch(Exception)
+                populateData();
+            }
+            catch(Exception)
             {
                 MessageBox.Show("You Have to select a whole row in order to delete", "Error");
             }
