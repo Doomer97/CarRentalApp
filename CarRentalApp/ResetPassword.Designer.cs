@@ -1,7 +1,7 @@
 ﻿
 namespace CarRentalApp
 {
-    partial class Login
+    partial class ResetPassword
     {
         /// <summary>
         /// Required designer variable.
@@ -29,115 +29,99 @@ namespace CarRentalApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.btn_ResetPass = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtBox_Password = new System.Windows.Forms.TextBox();
+            this.txtBox_Pass2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtBox_Username = new System.Windows.Forms.TextBox();
-            this.btn_Login = new System.Windows.Forms.Button();
+            this.txtBox_Pass1 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // btn_ResetPass
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Montserrat Subrayada", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label1.Location = new System.Drawing.Point(251, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 49);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Login";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_ResetPass.Location = new System.Drawing.Point(178, 133);
+            this.btn_ResetPass.Name = "btn_ResetPass";
+            this.btn_ResetPass.Size = new System.Drawing.Size(101, 57);
+            this.btn_ResetPass.TabIndex = 5;
+            this.btn_ResetPass.Text = "ResetPassword";
+            this.btn_ResetPass.UseVisualStyleBackColor = true;
+            this.btn_ResetPass.Click += new System.EventHandler(this.btn_ResetPass_Click);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.txtBox_Password, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtBox_Pass2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtBox_Username, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(138, 108);
+            this.tableLayoutPanel1.Controls.Add(this.txtBox_Pass1, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(50, 9);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(354, 106);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanel1.TabIndex = 4;
             // 
-            // txtBox_Password
+            // txtBox_Pass2
             // 
-            this.txtBox_Password.Location = new System.Drawing.Point(180, 56);
-            this.txtBox_Password.Name = "txtBox_Password";
-            this.txtBox_Password.PasswordChar = '*';
-            this.txtBox_Password.Size = new System.Drawing.Size(171, 20);
-            this.txtBox_Password.TabIndex = 3;
+            this.txtBox_Pass2.Location = new System.Drawing.Point(180, 56);
+            this.txtBox_Pass2.Name = "txtBox_Pass2";
+            this.txtBox_Pass2.PasswordChar = '*';
+            this.txtBox_Pass2.Size = new System.Drawing.Size(171, 20);
+            this.txtBox_Pass2.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(106, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Username";
+            this.label2.Text = "Enter New Password";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 53);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Password";
+            this.label3.Text = "Confirm Password";
             // 
-            // txtBox_Username
+            // txtBox_Pass1
             // 
-            this.txtBox_Username.Location = new System.Drawing.Point(180, 3);
-            this.txtBox_Username.Name = "txtBox_Username";
-            this.txtBox_Username.Size = new System.Drawing.Size(171, 20);
-            this.txtBox_Username.TabIndex = 2;
+            this.txtBox_Pass1.Location = new System.Drawing.Point(180, 3);
+            this.txtBox_Pass1.Name = "txtBox_Pass1";
+            this.txtBox_Pass1.PasswordChar = '*';
+            this.txtBox_Pass1.Size = new System.Drawing.Size(171, 20);
+            this.txtBox_Pass1.TabIndex = 2;
             // 
-            // btn_Login
-            // 
-            this.btn_Login.Location = new System.Drawing.Point(266, 232);
-            this.btn_Login.Name = "btn_Login";
-            this.btn_Login.Size = new System.Drawing.Size(101, 57);
-            this.btn_Login.TabIndex = 3;
-            this.btn_Login.Text = "Login";
-            this.btn_Login.UseVisualStyleBackColor = true;
-            this.btn_Login.Click += new System.EventHandler(this.btn_Login_Click);
-            // 
-            // Login
+            // ResetPassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(655, 359);
-            this.Controls.Add(this.btn_Login);
+            this.ClientSize = new System.Drawing.Size(455, 199);
+            this.Controls.Add(this.btn_ResetPass);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Name = "Login";
-            this.Text = "Login";
-            this.Load += new System.EventHandler(this.Login_Load);
+            this.Name = "ResetPassword";
+            this.Text = "Reset Password";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_ResetPass;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox txtBox_Password;
+        private System.Windows.Forms.TextBox txtBox_Pass2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtBox_Username;
-        private System.Windows.Forms.Button btn_Login;
+        private System.Windows.Forms.TextBox txtBox_Pass1;
     }
 }

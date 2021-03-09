@@ -98,9 +98,7 @@ namespace CarRentalApp
 
         private void btn_AddCar_Click(object sender, EventArgs e)
         {
-            var OpenForms = Application.OpenForms.Cast<Form>();
-            bool isOpen = OpenForms.Any(q => q.Name == "AddEditVehicle");
-            if (!isOpen)
+            if (!Utils.FormIsOpen("AddEditVehicle"))
             {
                 AddEditVehicle addEditVehicle = new AddEditVehicle(this);
                 addEditVehicle.MdiParent = this.MdiParent;
@@ -112,9 +110,7 @@ namespace CarRentalApp
         {
             try
             {
-                var OpenForms = Application.OpenForms.Cast<Form>();
-                bool isOpen = OpenForms.Any(q => q.Name == "AddEditVehicle");
-                if (!isOpen)
+                if (!Utils.FormIsOpen("AddEditVehicle"))
                 {
                     // get id
                     //We expect Int here (data type from database column). otherwise use var./ need casting

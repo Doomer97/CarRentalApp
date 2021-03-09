@@ -12,15 +12,19 @@ namespace CarRentalApp
     using System;
     using System.Collections.Generic;
     
-    public partial class CarRentalRecord
+    public partial class Role
     {
-        public int id { get; set; }
-        public string CustomerName { get; set; }
-        public Nullable<System.DateTime> DateRented { get; set; }
-        public Nullable<System.DateTime> DateReturned { get; set; }
-        public Nullable<decimal> Cost { get; set; }
-        public Nullable<int> TypeOfCarID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            this.UserRoles = new HashSet<UserRole>();
+        }
     
-        public virtual TypesOfCar TypesOfCar { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string shortname { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

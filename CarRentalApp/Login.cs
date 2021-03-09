@@ -23,41 +23,57 @@ namespace CarRentalApp
         private void btn_Login_Click(object sender, EventArgs e)
         {
             try
-            { 
-                string username = txtBox_Username.Text.Trim();
-                string password = txtBox_Password.Text;
-                //Convert the input string to a byte array and compute the hash.
-                SHA256 sha = SHA256.Create();
-                byte[] data = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-                //Create Stringbuilder to collect bytes and create a string
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int i = 0; i < data.Length; i++)
+            {
+                if (!(string.IsNullOrEmpty(txtBox_Username.Text) || string.IsNullOrEmpty(txtBox_Password.Text)))
                 {
-                    stringBuilder.Append(data[i].ToString("x2"));
-                }
-                var hashed_password = stringBuilder.ToString();
+                    string username = txtBox_Username.Text.Trim();
+                    string password = txtBox_Password.Text;
+                    //Convert the input string to a byte array and compute the hash.
 
-                var user = _db.Users.FirstOrDefault(q => q.username == username && q.password == hashed_password);
-                if (user == null)
-                {
-                    MessageBox.Show("please provide valid credentials");
-                }
+                    string hashed_password = Utils.HashPassword(password);
+
+                    var user = _db.Users.FirstOrDefault(
+                        q => q.username == username
+                        && q.password == hashed_password
+                        && q.isActive == true);
+
+                    if (user == null)
+                    {
+                        MessageBox.Show("please provide valid credentials");
+                    }
+                    else
+                    {
+                        if (user.isActive == false)
+                        {
+                            MessageBox.Show("Sorry. This user is currently deactivated");
+                        }
+                        else
+                        {
+                            if (!Utils.FormIsOpen("MainWindow"))
+                            {
+                                UserRole role = user.UserRoles.FirstOrDefault();
+                                var roleName = role.Role.shortname;
+                                MainWindow mainWindow = new MainWindow(this, user);
+                                this.Hide();
+                                mainWindow.Show();
+                            }
+                        }//login success
+                    }
+                }//empty user or pass
                 else
                 {
-                    var OpenForms = Application.OpenForms.Cast<Form>();
-                    bool isOpen = OpenForms.Any(q => q.Name == "MainWindow");
-                    if (!isOpen)
-                    {
-                        MainWindow mainWindow = new MainWindow(this);
-                        this.Hide();
-                        mainWindow.Show();
-                    }
+                    MessageBox.Show("Username or password should not be empty", "Error");
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Something went wrong. Please try again");
             }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

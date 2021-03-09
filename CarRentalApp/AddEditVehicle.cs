@@ -25,7 +25,7 @@ namespace CarRentalApp
             _manageVehicleListing = manageVehicleListing;
             _db = new CarRentalEntities();
         }
-        public AddEditVehicle(TypesOfCars carToEdit, ManageVehicleListing manageVehicleListing=null)
+        public AddEditVehicle(TypesOfCar carToEdit, ManageVehicleListing manageVehicleListing=null)
         {
             InitializeComponent();
             lbl_Title.Text = "Edit Vehicle";
@@ -44,7 +44,7 @@ namespace CarRentalApp
             }
         }
 
-        private void PopulateFields(TypesOfCars car)
+        private void PopulateFields(TypesOfCar car)
         {
             lbl_Id.Text = car.Id.ToString();
             txtBox_Name.Text = car.Make;
@@ -77,7 +77,7 @@ namespace CarRentalApp
                 }
                 else
                 {
-                    var newCar = new TypesOfCars
+                    var newCar = new TypesOfCar
                     {
                         Make = txtBox_Name.Text,
                         Model = txtBox_Model.Text,

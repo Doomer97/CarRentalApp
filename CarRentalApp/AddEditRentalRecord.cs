@@ -112,7 +112,7 @@ namespace CarRentalApp
                 if (isEditMode)
                 {
                     var id = int.Parse(lblRecordId.Text);
-                    rentalRecord = _db.CarRentalRecord.FirstOrDefault(q => q.id == id);
+                    rentalRecord = _db.CarRentalRecords.FirstOrDefault(q => q.id == id);
                 }
                 rentalRecord.CustomerName = coustomerName;
                 rentalRecord.DateRented = daterented;
@@ -126,7 +126,7 @@ namespace CarRentalApp
                 else
                 {
                     if (!isEditMode)
-                        _db.CarRentalRecord.Add(rentalRecord);
+                        _db.CarRentalRecords.Add(rentalRecord);
 
                     _db.SaveChanges();
 

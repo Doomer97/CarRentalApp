@@ -12,12 +12,12 @@ namespace CarRentalApp
     using System;
     using System.Collections.Generic;
     
-    public partial class TypesOfCars
+    public partial class TypesOfCar
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TypesOfCars()
+        public TypesOfCar()
         {
-            this.CarRentalRecord = new HashSet<CarRentalRecord>();
+            this.CarRentalRecords = new HashSet<CarRentalRecord>();
         }
     
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace CarRentalApp
         public Nullable<int> Year { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CarRentalRecord> CarRentalRecord { get; set; }
+        public virtual ICollection<CarRentalRecord> CarRentalRecords { get; set; }
     }
 }

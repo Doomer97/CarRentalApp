@@ -22,7 +22,7 @@ namespace CarRentalApp
         {
             try
             {
-                var record = _db.CarRentalRecord
+                var record = _db.CarRentalRecords
                     .Select(q => new
                     {
                         Customer = q.CustomerName,
@@ -30,7 +30,7 @@ namespace CarRentalApp
                         DateIn = q.DateReturned,
                         Id = q.id,
                         Cost = q.Cost,
-                        Car=q.TypesOfCars.Make+" "+q.TypesOfCars.Model
+                        Car=q.TypesOfCar.Make+" "+q.TypesOfCar.Model
                     }).ToList();
                 dGV_RecordList.DataSource = record;
                 dGV_RecordList.Columns["Id"].Visible = false;
@@ -57,15 +57,13 @@ namespace CarRentalApp
         {
             try
             {
-                var OpenForms = Application.OpenForms.Cast<Form>();
-                bool isOpen = OpenForms.Any(q => q.Name == "AddEditRentalRecord");
-                if (!isOpen)
+                if (!Utils.FormIsOpen("AddEditRentalRecord"))
                 {
                     // get id
                     //We expect Int here (data type from database column). otherwise use var./ need casting
                     int id = (int)dGV_RecordList.SelectedRows[0].Cells["Id"].Value;
                     //query
-                    var record = _db.CarRentalRecord.FirstOrDefault(q => q.id == id);
+                    var record = _db.CarRentalRecords.FirstOrDefault(q => q.id == id);
 
                     // launch addeditvehicle window with data
 
@@ -88,9 +86,9 @@ namespace CarRentalApp
             {
                 int id = (int)dGV_RecordList.SelectedRows[0].Cells["Id"].Value;
 
-                var record = _db.CarRentalRecord.FirstOrDefault(q => q.id == id);
+                var record = _db.CarRentalRecords.FirstOrDefault(q => q.id == id);
                 //delete
-                _db.CarRentalRecord.Remove(record);
+                _db.CarRentalRecords.Remove(record);
                 _db.SaveChanges();
                 //dGV_RecordList.Refresh();
                 MessageBox.Show("Delete Success");
@@ -106,7 +104,7 @@ namespace CarRentalApp
         {
             var OpenForms = Application.OpenForms.Cast<Form>();
             bool isOpen = OpenForms.Any(q => q.Name == "AddEditRentalRecord");
-            if (!isOpen)
+            if (!Utils.FormIsOpen("AddEditRentalRecord"))
             {
                 AddEditRentalRecord addEditRentalRecord = new AddEditRentalRecord(this);
                 addEditRentalRecord.MdiParent = this.MdiParent;

@@ -12,10 +12,13 @@ namespace CarRentalApp
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class UserRole
     {
         public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public Nullable<int> userid { get; set; }
+        public Nullable<int> roleid { get; set; }
+    
+        public virtual Role Role { get; set; }
+        public virtual User User { get; set; }
     }
 }
